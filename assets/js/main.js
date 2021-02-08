@@ -1,15 +1,14 @@
-let selectOption = document.querySelector('.form-select');
-let btnInput = document.querySelector('.btn-input');
-let btnPesquisar = document.querySelector('.btn-primary');
-var content = document.getElementById('div-main');
+const selectOption = document.querySelector('.form-select');
+const btnInput = document.querySelector('.btn-input');
+const btnPesquisar = document.querySelector('.btn-primary');
+const content = document.getElementById('div-main');
 
 const xhr1 = new XMLHttpRequest();
 
 btnPesquisar.addEventListener('click', ()=> {
 
 
-  xhr1.open("GET",
-        `https://www.googleapis.com/books/v1/volumes?q=+${selectOption}:${btnInput}&key=AIzaSyByRTlliIKCn19yuOCQOdRZUjhz1gGYBa4`
+  xhr1.open("GET",`https://www.googleapis.com/books/v1/volumes?q=+${selectOption.value}:${btnInput.value}&key=AIzaSyByRTlliIKCn19yuOCQOdRZUjhz1gGYBa4`
     );
 
     xhr1.onreadystatechange = function () {
@@ -58,14 +57,21 @@ btnPesquisar.addEventListener('click', ()=> {
             }
         }
     }
+    clearInput();
+    content.innerHTML = '';
     xhr1.send();
 })
 
 
-document.getElementById("Input").addEventListener("keyup", function (event) {
-  if (event.keyCode === 13) {
-      event.preventDefault();
-      document.getElementById("srcbtn").click();
+document.querySelector('.btn-input').addEventListener("keypress", function (e) {
+  if (e.keyCode === 13) {
+      e.preventDefault();
+      document.querySelector('.btn-primary').click();
+
   }
 });
 
+function clearInput() {
+    btnInput.value = '';
+    btnInput.focus();
+}
